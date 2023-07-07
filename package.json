@@ -1,0 +1,34 @@
+{
+  "name": "asksuite-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/server.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s .",
+    "start": "DEBUG=server* node ./dist/server.js",
+    "dev": "DEBUG=server* nodemon server",
+    "test": "npx jest"
+  },
+  "author": "Felippe Freire",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "dotenv": "^9.0.0",
+    "express": "^4.17.1",
+    "puppeteer": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.8",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.4.0",
+    "jest": "^29.6.1",
+    "nodemon": "^2.0.7",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "tscpaths": "^0.0.9",
+    "typescript": "^5.1.6"
+  }
+}
