@@ -100,3 +100,8 @@ What do we evaluate with this test?
     * Coding structure
     * Changes that don't break easily
 
+
+domain -> entidades e casos de uso e interfaces dos services
+infra -> implementaçao dos services / puppeeter
+application -> controllers, routers
+main/app -> faz a cola e expoe a aplicacao para o server
