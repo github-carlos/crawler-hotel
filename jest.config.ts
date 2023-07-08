@@ -1,6 +1,6 @@
 const jestConfig = {
   preset: 'ts-jest',
-  roots: ["tests"],
+  roots: ["src"],
   moduleNameMapper: {
     "^@domain/(.*)$": "<rootDir>/src/domain/$1",
     "^@business/(.*)$": "<rootDir>/src/business/$1",
