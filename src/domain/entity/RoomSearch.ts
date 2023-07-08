@@ -11,8 +11,8 @@ export type RoomSearchInput = {
 export class RoomSearch {
   private _checkIn: Date
   private _checkOut: Date
-  private _numberOfAdults?: number
-  private _numberOfChildren?: number
+  private _numberOfAdults: number
+  private _numberOfChildren: number
 
   constructor(properties: RoomSearchInput) {
     this._checkIn = properties.checkIn

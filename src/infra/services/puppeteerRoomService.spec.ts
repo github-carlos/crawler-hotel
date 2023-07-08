@@ -20,7 +20,7 @@ const launchMock = jest.fn().mockResolvedValue({
 
 jest.mock('puppeteer', () => {
   return {
-    launch: (...args) => {
+    launch: (...args: any) => {
       return launchMock(...args)
     }
   }

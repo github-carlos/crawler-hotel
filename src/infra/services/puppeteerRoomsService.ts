@@ -15,7 +15,7 @@ type ExtratedRooms = Array<{
 export class PuppeteerRoomsService implements RoomsServiceInterface {
 
   private debug: Debugger
-  private browser: puppeteer.Browser
+  private browser?: puppeteer.Browser
 
   private constructor() {
     this.debug = debug(`Server::` + PuppeteerRoomsService.name)
@@ -70,12 +70,17 @@ export class PuppeteerRoomsService implements RoomsServiceInterface {
 
   private async extractRooms(page: puppeteer.Page): Promise<ExtratedRooms> {
     return page.evaluate(() => {
-      const rooms = []
+      //@ts-ignore
+      const rooms: ExtratedRooms = []
       const trRooms = document.querySelectorAll('.row-quarto')
       trRooms.forEach((trRoom: Element) => {
+      //@ts-ignore
         const name = trRoom.querySelector('.quartoNome').textContent
+      //@ts-ignore
         const description = trRoom.querySelector('.quartoDescricao > p').textContent
+      //@ts-ignore
         const image = trRoom.querySelector('.room--image').getAttribute('data-src')
+      //@ts-ignore
         const price = `R$ ${trRoom.querySelector('.valorFinal').childNodes[1].textContent.trim()}00`
         rooms.push({ name, description, image, price })
       })
@@ -86,7 +91,7 @@ export class PuppeteerRoomsService implements RoomsServiceInterface {
   async closeBrowser(): Promise<void> {
     if (this.browser) {
       await this.browser.close()
-      this.browser = null
+      this.browser = undefined
     }
   }
 }
