@@ -15,7 +15,9 @@ export type SearchAvailableRoomsOutputDto = {
   rooms: Array<Room>
 }
 
-export class SearchAvailableRooms implements UseCase<SearchAvailableRoomsInputDto, Promise<SearchAvailableRoomsOutputDto>> {
+export interface SearchAvailableRoomsInterface extends UseCase<SearchAvailableRoomsInputDto, Promise<SearchAvailableRoomsOutputDto>> {}
+
+export class SearchAvailableRooms implements SearchAvailableRoomsInterface {
 
   private debug: Debugger
 

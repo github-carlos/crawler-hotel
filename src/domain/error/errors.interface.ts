@@ -1,1 +1,1 @@
-export interface BusinessError extends Error {}
+export class BusinessError extends Error {}
