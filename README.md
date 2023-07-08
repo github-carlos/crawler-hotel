@@ -50,13 +50,13 @@ The necessary information for the crawler is under the [Assets](#assets) session
         <pre>
         [{
             "name": "STUDIO CASAL",
-            "description": "Apartamentos localizados no prédio principal do Resort, próximos a recepção e a área de convivência, com vista para área de estacionamento não possuem varanda. Acomoda até 1 adulto e 1 criança ou 2 adultos", 
+            "description": "Apartamentos localizados no prédio principal do Resort, próximos a recepção e a área de convivência, com vista para área de estacionamento não possuem constanda. Acomoda até 1 adulto e 1 criança ou 2 adultos", 
             "price": "R$ 1.092,00",
             "image": "https://letsimage.s3.amazonaws.com/letsbook/193/quartos/30/fotoprincipal.jpg"
         },
         {
             "name": "CABANA",
-            "description": "Apartamentos espalhados pelos jardins do Resort, com vista jardim possuem varanda. Acomoda até 4 adultos ou 3 adultos e 1 criança ou 2 adultos e 2 criança ou 1 adulto e 3 crianças, em duas camas casal.", 
+            "description": "Apartamentos espalhados pelos jardins do Resort, com vista jardim possuem constanda. Acomoda até 4 adultos ou 3 adultos e 1 criança ou 2 adultos e 2 criança ou 1 adulto e 3 crianças, em duas camas casal.", 
             "price": "R$ 1.321,00",
             "image": "https://letsimage.s3.amazonaws.com/letsbook/193/quartos/32/fotoprincipal.jpg"
         }]
