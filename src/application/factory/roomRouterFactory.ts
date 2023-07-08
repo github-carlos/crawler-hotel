@@ -1,7 +1,7 @@
-import { RoomController } from "@application/controller";
-import { RoomRouter } from "@application/routes";
-import { SearchAvailableRooms } from "@domain/usecase";
-import { PuppeteerRoomsService } from "@infra/services/puppeteerRoomsService";
+import { RoomController } from '@application/controller';
+import { RoomRouter } from '@application/routes';
+import { SearchAvailableRooms } from '@domain/usecase';
+import { PuppeteerRoomsService } from '@infra/services/puppeteerRoomsService';
 
 export function roomRouterFactory(): RoomRouter {
   const roomsService = PuppeteerRoomsService.instance

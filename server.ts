@@ -1,4 +1,4 @@
-import { CrawlerApp } from "src/app";
+import { CrawlerApp } from 'src/app';
 require('dotenv').config();
 
 const app = new CrawlerApp();

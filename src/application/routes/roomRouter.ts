@@ -1,5 +1,5 @@
-import { RoomController } from "@application/controller";
-import { Request, Response, Router } from "express";
+import { RoomController } from '@application/controller';
+import { Request, Response, Router } from 'express';
 
 export class RoomRouter {
 

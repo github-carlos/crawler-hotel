@@ -1,10 +1,9 @@
-import { Room } from "@domain/entity";
-import { BusinessError } from "@domain/error/errors.interface";
-import { SearchAvailableRooms, SearchAvailableRoomsInputDto, SearchAvailableRoomsInterface, SearchAvailableRoomsOutputDto } from "@domain/usecase";
-import { UseCase } from "@domain/usecase/usecase.interface";
-import { Debugger, debug } from "debug";
-import { SearchRoomSchema } from "./schemas/searchRoom";
-import { ZodError } from "zod";
+import { Room } from '@domain/entity';
+import { BusinessError } from '@domain/error/errors.interface';
+import {  SearchAvailableRoomsInterface } from '@domain/usecase';
+import { Debugger, debug } from 'debug';
+import { SearchRoomSchema } from './schemas/searchRoom';
+import { ZodError } from 'zod';
 
 export class RoomController {
 

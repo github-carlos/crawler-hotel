@@ -1,8 +1,8 @@
-import { roomRouterFactory } from "@application/factory";
-import { PuppeteerRoomsService } from "@infra/services/puppeteerRoomsService";
-import { Debugger, debug } from "debug";
-import express from "express";
-import { Server } from "http";
+import { roomRouterFactory } from '@application/factory';
+import { PuppeteerRoomsService } from '@infra/services/puppeteerRoomsService';
+import { Debugger, debug } from 'debug';
+import express from 'express';
+import { Server } from 'http';
 
 export class CrawlerApp {
   private debug: Debugger
@@ -24,12 +24,12 @@ export class CrawlerApp {
       const roomRouter = roomRouterFactory()
       this.app.use('/search', roomRouter.routes())
 
-      this.app.use(function (req, res, next) {
+      this.app.use(function (_, res) {
         return res.status(404).send('Route not found')
       });
 
       this.server = this.app.listen(port, () => {
-        this.debug("App Crawler running on PORT " + port)
+        this.debug('App Crawler running on PORT ' + port)
       })
     } catch(err) {
       this.debug('Failed to start server::' + err)
@@ -39,7 +39,7 @@ export class CrawlerApp {
   }
 
   async close() {
-    this.debug("Closing Application...")
+    this.debug('Closing Application...')
     if (PuppeteerRoomsService.instance) {
       await PuppeteerRoomsService.instance.closeBrowser()
     }

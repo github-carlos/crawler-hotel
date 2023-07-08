@@ -1,9 +1,9 @@
-import { Room } from "@domain/entity";
-import { RoomSearch } from "@domain/entity/RoomSearch";
-import { RoomsServiceInterface } from "@domain/service";
-import { format } from "date-fns";
-import { Debugger, debug } from "debug";
-import * as puppeteer from "puppeteer";
+import { Room } from '@domain/entity';
+import { RoomSearch } from '@domain/entity/RoomSearch';
+import { RoomsServiceInterface } from '@domain/service';
+import { format } from 'date-fns';
+import { Debugger, debug } from 'debug';
+import * as puppeteer from 'puppeteer';
 
 type ExtratedRooms = Array<{
   name: string
@@ -18,7 +18,7 @@ export class PuppeteerRoomsService implements RoomsServiceInterface {
   private browser?: puppeteer.Browser
 
   private constructor() {
-    this.debug = debug(`Server::` + PuppeteerRoomsService.name)
+    this.debug = debug('Server::' + PuppeteerRoomsService.name)
   }
 
   private static _instance: PuppeteerRoomsService;
@@ -61,26 +61,21 @@ export class PuppeteerRoomsService implements RoomsServiceInterface {
     return `${process.env.HOTEL_SITE_URL}?`
       + `checkin=${encodedCheckin}&`
       + `checkout=${encodedCheckout}&`
-      + "cidade=&hotel=12&"
+      + 'cidade=&hotel=12&'
       + `adultos=${roomSearch.numberOfAdults}&`
       + `criancas=${roomSearch.numberOfChildren}&`
-      + "destino=Pratagy+Beach+Resort+All+Inclusive&promocode=&tarifa=&"
+      + 'destino=Pratagy+Beach+Resort+All+Inclusive&promocode=&tarifa=&'
       + `mesCalendario=${encodedMonthYear}`
   }
 
   private async extractRooms(page: puppeteer.Page): Promise<ExtratedRooms> {
     return page.evaluate(() => {
-      //@ts-ignore
       const rooms: ExtratedRooms = []
       const trRooms = document.querySelectorAll('.row-quarto')
       trRooms.forEach((trRoom: Element) => {
-      //@ts-ignore
         const name = trRoom.querySelector('.quartoNome').textContent
-      //@ts-ignore
         const description = trRoom.querySelector('.quartoDescricao > p').textContent
-      //@ts-ignore
         const image = trRoom.querySelector('.room--image').getAttribute('data-src')
-      //@ts-ignore
         const price = `R$ ${trRoom.querySelector('.valorFinal').childNodes[1].textContent.trim()}00`
         rooms.push({ name, description, image, price })
       })

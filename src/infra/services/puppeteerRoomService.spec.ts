@@ -1,9 +1,9 @@
-import { RoomSearch } from "@domain/entity/RoomSearch"
-import { PuppeteerRoomsService } from "./puppeteerRoomsService"
-import { addDays } from "date-fns"
-import { Room } from "@domain/entity"
+import { RoomSearch } from '@domain/entity/RoomSearch'
+import { PuppeteerRoomsService } from './puppeteerRoomsService'
+import { addDays } from 'date-fns'
+import { Room } from '@domain/entity'
 
-const rooms = [{ name: 'R1', description: 'Description', price: 'R$ 50', image: "image.com" }]
+const rooms = [{ name: 'R1', description: 'Description', price: 'R$ 50', image: 'image.com' }]
 const evaluate = jest.fn().mockResolvedValue(rooms)
 const goto = jest.fn().mockResolvedValue(null)
 const closeBrowser = jest.fn().mockResolvedValue(null)
@@ -20,18 +20,18 @@ const launchMock = jest.fn().mockResolvedValue({
 
 jest.mock('puppeteer', () => {
   return {
-    launch: (...args: any) => {
-      return launchMock(...args)
+    launch: (args: { headless: string }) => {
+      return launchMock(args)
     }
   }
 })
 
-describe("PuppeteerRoomService Unit test", () => {
+describe('PuppeteerRoomService Unit test', () => {
 
   let puppeteerService: PuppeteerRoomsService
 
   beforeAll(async () => {
-    process.env.HOTEL_SITE_URL = "https://pratagy.letsbook.com.br/D/Reserva"
+    process.env.HOTEL_SITE_URL = 'https://pratagy.letsbook.com.br/D/Reserva'
     puppeteerService = PuppeteerRoomsService.instance
     await puppeteerService.getBrowser()
   })
@@ -41,11 +41,11 @@ describe("PuppeteerRoomService Unit test", () => {
   })
 
   const roomSearch = new RoomSearch({ checkIn: addDays(new Date(), 5), checkOut: addDays(new Date(), 10) })
-  test("should go to web page and get rooms with success", async () => {
+  test('should go to web page and get rooms with success', async () => {
     const availableRooms = await puppeteerService.getAvailableRooms(roomSearch)
 
     expect(launchMock).toBeCalledWith({headless: 'new'})
-    expect(goto).toBeCalledWith(expect.any(String), { waitUntil: "networkidle0" })
+    expect(goto).toBeCalledWith(expect.any(String), { waitUntil: 'networkidle0' })
     expect(closePage).toBeCalledTimes(1)
     expect(evaluate).toBeCalledTimes(1)
 

@@ -1,8 +1,8 @@
-import { Room } from "@domain/entity";
-import { RoomsServiceInterface } from "@domain/service";
-import { UseCase } from "./usecase.interface";
-import { debug, Debugger } from "debug";
-import { RoomSearch } from "@domain/entity/RoomSearch";
+import { Room } from '@domain/entity';
+import { RoomsServiceInterface } from '@domain/service';
+import { UseCase } from './usecase.interface';
+import { debug, Debugger } from 'debug';
+import { RoomSearch } from '@domain/entity/RoomSearch';
 
 export type SearchAvailableRoomsInputDto = {
   checkIn: Date
@@ -15,7 +15,7 @@ export type SearchAvailableRoomsOutputDto = {
   rooms: Array<Room>
 }
 
-export interface SearchAvailableRoomsInterface extends UseCase<SearchAvailableRoomsInputDto, Promise<SearchAvailableRoomsOutputDto>> {}
+export type SearchAvailableRoomsInterface = UseCase<SearchAvailableRoomsInputDto, Promise<SearchAvailableRoomsOutputDto>>
 
 export class SearchAvailableRooms implements SearchAvailableRoomsInterface {
 

@@ -1,14 +1,14 @@
-import { RoomSearch } from "@domain/entity/RoomSearch"
-import { PuppeteerRoomsService } from "./puppeteerRoomsService"
-import { addDays } from "date-fns"
+import { RoomSearch } from '@domain/entity/RoomSearch'
+import { PuppeteerRoomsService } from './puppeteerRoomsService'
+import { addDays } from 'date-fns'
 
-describe("#PuppeteerRoomService E2E test", () => {
+describe('#PuppeteerRoomService E2E test', () => {
 
   let puppeteerService: PuppeteerRoomsService
 
   beforeAll(async () => {
-    process.env.HOTEL_SITE_URL = "https://pratagy.letsbook.com.br/D/Reserva"
-    process.env.CHROME_PATH_MAC_M1="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    process.env.HOTEL_SITE_URL = 'https://pratagy.letsbook.com.br/D/Reserva'
+    process.env.CHROME_PATH_MAC_M1='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
     puppeteerService = PuppeteerRoomsService.instance
     await puppeteerService.getBrowser()
   })
@@ -18,7 +18,7 @@ describe("#PuppeteerRoomService E2E test", () => {
   })
 
   const roomSearch = new RoomSearch({ checkIn: addDays(new Date(), 5), checkOut: addDays(new Date(), 10) })
-  test("should go to web page and get rooms with success", async () => {
+  test('should go to web page and get rooms with success', async () => {
     const availableRooms = await puppeteerService.getAvailableRooms(roomSearch)
 
     expect(availableRooms).toBeInstanceOf(Array)

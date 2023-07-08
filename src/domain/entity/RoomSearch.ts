@@ -1,5 +1,5 @@
-import { CheckOutBeforeCheckInError, InvalidCheckInDateError, InvalidNumberOfAdultsError, InvalidNumberOfChildrenError } from "@domain/error"
-import { isBefore } from "date-fns"
+import { CheckOutBeforeCheckInError, InvalidCheckInDateError, InvalidNumberOfAdultsError, InvalidNumberOfChildrenError } from '@domain/error'
+import { isBefore } from 'date-fns'
 
 export type RoomSearchInput = {
   checkIn: Date
