@@ -6,7 +6,7 @@ import { InvalidCheckInDateError } from "@domain/error"
 
 describe("#RoomController", () => {
 
-  const input = { checkIn: addDays(new Date(), 2), checkOut: addDays(new Date(), 5) }
+  const input = { checkIn: addDays(new Date(), 2).toISOString(), checkOut: addDays(new Date(), 5).toISOString() }
 
   const rooms = [new Room({name: 'R1', description: 'description', image: 'image.com', price: '1050'})]
   const searchUseCaseMock = { run: jest.fn() }
@@ -19,7 +19,7 @@ describe("#RoomController", () => {
       expect(response.data).toBeInstanceOf(Array)
       expect(response.data.length).toBe(1)
       expect(response.status).toBe(200)
-      expect(searchUseCaseMock.run).toBeCalledWith(input)
+      expect(searchUseCaseMock.run).toBeCalledWith({...input, checkIn: new Date(input.checkIn), checkOut: new Date(input.checkOut)})
     })
   })
   describe("fail", () => {
@@ -36,6 +36,31 @@ describe("#RoomController", () => {
       expect(response.data).toBeNull()
       expect(response.status).toBe(500)
       expect(response.error).toBe('Internal error')
+    })
+
+    test("should throw error when missing checkIn param", async () => {
+      const response = await controller.search({checkIn: null, checkOut: input.checkOut})
+      expect(response.data).toBeNull()
+      expect(response.status).toBe(400)
+      expect(response.error).not.toBeUndefined()
+    })
+    test("should throw error when missing checkOut param", async () => {
+      const response = await controller.search({checkIn: input.checkIn, checkOut: null})
+      expect(response.data).toBeNull()
+      expect(response.status).toBe(400)
+      expect(response.error).not.toBeUndefined()
+    })
+    test("should throw error when number of adults is wrong type", async () => {
+      const response = await controller.search({...input, numberOfAdults: 'aa' as any})
+      expect(response.data).toBeNull()
+      expect(response.status).toBe(400)
+      expect(response.error).not.toBeUndefined()
+    })
+    test("should throw error when number of childre is wrong type", async () => {
+      const response = await controller.search({...input, numberOfChildren: 'aa' as any})
+      expect(response.data).toBeNull()
+      expect(response.status).toBe(400)
+      expect(response.error).not.toBeUndefined()
     })
   })
 })
