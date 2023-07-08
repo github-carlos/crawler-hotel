@@ -13,16 +13,26 @@ export class RoomController {
     this.debug = debug('Server::' + RoomController.name)
   }
 
-  async search(input: {checkIn: string, checkOut: string, numberOfAdults?: number, numberOfChildren?: number}): Promise<{data?: Array<Room>, status: number, error?: string}> {
+  async search(input: {checkIn: string, checkOut: string, numberOfAdults?: number, numberOfChildren?: number}): Promise<{data?: Array<Room>, status: number, error?: unknown}> {
     this.debug('Searching Rooms...')
     try {
-      SearchRoomSchema.parse(input)
-      const result = await this.searchAvailableRoomUseCase.run({...input, checkIn: new Date(input.checkIn), checkOut: new Date(input.checkOut)})
+      const checkIn = input.checkIn ? new Date(input.checkIn) : undefined
+      const checkOut = input.checkOut ? new Date(input.checkOut) : undefined
+      SearchRoomSchema.parse({...input, checkIn, checkOut})
+
+      const result = await this.searchAvailableRoomUseCase.run({...input, checkIn, checkOut})
+
       return { data: result.rooms,  status: 200, error: undefined }
     } catch(err) {
-      if (err instanceof BusinessError || err instanceof ZodError) {
+      if (err instanceof BusinessError) {
         return {data: null, status: 400, error: err.message}
       }
+
+      if (err instanceof ZodError) {
+        const errorMessage = err.flatten().fieldErrors
+        return {data: null, status: 400, error: errorMessage }
+      }
+
       return { data: null, status: 500, error: 'Internal error' }
     }
   }

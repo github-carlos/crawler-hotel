@@ -8,10 +8,11 @@ export class RoomRouter {
   routes(): Router {
     const router = Router()
 
-    router.post('/search', async (req: Request, res: Response) => {
+    router.post('/', async (req: Request, res: Response) => {
       const input = req.body
-      const response = await this.roomController.search(input)
-      return res.status(response.status).json({data: response.data, error: response.error})
+      const result = await this.roomController.search(input)
+      const response = !result.error ? result.data : {error: result.error}
+      return res.status(result.status).json(response)
     })
 
     return router

@@ -50,6 +50,12 @@ describe("#RoomController", () => {
       expect(response.status).toBe(400)
       expect(response.error).not.toBeUndefined()
     })
+    test("should throw error when invalid date", async () => {
+      const response = await controller.search({checkIn: '2039-03-94', checkOut: null})
+      expect(response.data).toBeNull()
+      expect(response.status).toBe(400)
+      expect(response.error).not.toBeUndefined()
+    })
     test("should throw error when number of adults is wrong type", async () => {
       const response = await controller.search({...input, numberOfAdults: 'aa' as any})
       expect(response.data).toBeNull()

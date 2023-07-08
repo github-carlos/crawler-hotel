@@ -1,13 +1,12 @@
+import { CrawlerApp } from "src/app";
 require('dotenv').config();
-const express = require('express');
-const router = require('./src/application/routes/router.ts');
 
-const app = express();
-app.use(express.json());
-
+const app = new CrawlerApp();
 const port = process.env.PORT;
+app.start(port)
 
-app.use('/', router);
-app.listen(port || 8080, () => {
-    console.log(`Listening on port ${port}`);
+// Applying graceful shutdown
+process.on('SIGINT', async () => {
+    await app.close();
+    process.exit(0);
 });

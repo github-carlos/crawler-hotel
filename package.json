@@ -5,8 +5,8 @@
   "main": "./dist/server.js",
   "scripts": {
     "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s .",
-    "start": "DEBUG=server* node ./dist/server.js",
-    "dev": "DEBUG=server* nodemon server",
+    "start": "DEBUG=Server* node ./dist/server.js",
+    "dev": "DEBUG=Server* nodemon server",
     "test": "npx jest"
   },
   "author": "Felippe Freire",
