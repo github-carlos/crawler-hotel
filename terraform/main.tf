@@ -11,3 +11,7 @@ terraform {
     region = "us-east-1"
   }
 }
+
+output "app_url" {
+  value = aws_alb.application_load_balancer.dns_name
+}
