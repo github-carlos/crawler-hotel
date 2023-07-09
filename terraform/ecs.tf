@@ -21,8 +21,8 @@ resource "aws_ecs_task_definition" "app_task" {
           "hostPort": 8080
         }
       ],
-      "memory": 512,
-      "cpu": 256
+      "memory": 1024,
+      "cpu": 512
     }
   ]
   DEFINITION
