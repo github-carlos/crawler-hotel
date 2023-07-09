@@ -4,6 +4,7 @@ import {  SearchAvailableRoomsInterface } from '@domain/usecase';
 import { Debugger, debug } from 'debug';
 import { SearchRoomSchema } from './schemas/searchRoom';
 import { ZodError } from 'zod';
+import { logger } from '../../shared/logger';
 
 export class RoomController {
 
@@ -25,6 +26,7 @@ export class RoomController {
     } catch(err) {
 
       this.debug('Error:: ' + err)
+      logger.error('Error:: ' + err)
 
       if (err instanceof BusinessError) {
         return {data: null, status: 400, error: err.message}
