@@ -3,3 +3,5 @@ docker build . -t crawler-asksuite
 docker buildx build -t crawler-asksuite --load --platform=linux/amd64 .
 // run container
 docker run -p 8080:8080 crawler-asksuite
+// rodar pipe local
+act -j terraform --secret-file my.secrets  --container-architecture linux/amd64
