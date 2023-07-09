@@ -11,7 +11,7 @@ resource "aws_alb" "application_load_balancer" {
 
 resource "aws_security_group" "load_balancer_security_group" {
   ingress {
-    from_port   = 8080
+    from_port   = 80
     to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
