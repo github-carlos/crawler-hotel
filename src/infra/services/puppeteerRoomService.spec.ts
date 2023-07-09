@@ -44,7 +44,10 @@ describe('PuppeteerRoomService Unit test', () => {
   test('should go to web page and get rooms with success', async () => {
     const availableRooms = await puppeteerService.getAvailableRooms(roomSearch)
 
-    expect(launchMock).toBeCalledWith({headless: 'new'})
+    expect(launchMock).toBeCalledWith({
+      headless: 'new', executablePath: process.env.EXECUTABLE_PATH,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    })
     expect(goto).toBeCalledWith(expect.any(String), { waitUntil: 'networkidle0' })
     expect(closePage).toBeCalledTimes(1)
     expect(evaluate).toBeCalledTimes(1)

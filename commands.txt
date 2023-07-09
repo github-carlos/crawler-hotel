@@ -1,5 +1,5 @@
 // buildar imagem
 docker build . -t crawler-asksuite
-docker buildx build -t crawler-asksuite --platform=linux/amd64 .
+docker buildx build -t crawler-asksuite --load --platform=linux/amd64 .
 // run container
 docker run -p 8080:8080 crawler-asksuite
