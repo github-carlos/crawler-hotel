@@ -1,4 +1,4 @@
-import { roomRouterFactory } from '@application/factory';
+import { healthRouterFactory, roomRouterFactory } from '@application/factory';
 import { PuppeteerRoomsService } from '@infra/services/puppeteerRoomsService';
 import { Debugger, debug } from 'debug';
 import express from 'express';
@@ -22,7 +22,11 @@ export class CrawlerApp {
       this.app.use(express.urlencoded({ extended: true}))
 
       const roomRouter = roomRouterFactory()
+      const healthRouter = healthRouterFactory()
+
+      // setup routes
       this.app.use('/search', roomRouter.routes())
+      this.app.use('/health', healthRouter.routes())
 
       this.app.use(function (_, res) {
         return res.status(404).send('Route not found')
