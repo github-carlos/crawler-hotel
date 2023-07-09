@@ -41,7 +41,7 @@ jobs:
         cache: npm
 
     - name: Lint
-      run: npx lint .
+      run: npx eslint .
 
     - name: Test
       run: npm t
