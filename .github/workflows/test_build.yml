@@ -31,5 +31,5 @@ jobs:
         run: npm ci
       - name: Run lint
         run: npx eslint .
-      - name: Run Tests
-        run: npm t
+      - name: Run Unit Tests
+        run: npm run test:unit

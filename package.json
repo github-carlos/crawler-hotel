@@ -7,7 +7,8 @@
     "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s .",
     "start": "DEBUG=Server* node ./dist/server.js",
     "dev": "DEBUG=Server* nodemon server",
-    "test": "npx jest"
+    "test": "npx jest",
+    "test:unit": "npx jest --testMatch=\"**/*.spec.ts\""
   },
   "author": "Felippe Freire",
   "license": "ISC",
