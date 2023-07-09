@@ -17,6 +17,7 @@ env:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    needs: Tests
 
     steps:
       - name: Checkout Repository
