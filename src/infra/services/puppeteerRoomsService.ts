@@ -48,7 +48,8 @@ export class PuppeteerRoomsService implements RoomsServiceInterface {
       this.debug('Launching new Browser...')
       this.browser = await puppeteer.launch({
         headless: 'new',
-        executablePath: process.env.CHROME_PATH_MAC_M1
+        executablePath: process.env.EXECUTABLE_PATH,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
       })
     }
     return this.browser

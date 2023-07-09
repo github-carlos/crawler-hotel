@@ -8,7 +8,7 @@ describe('#PuppeteerRoomService E2E test', () => {
 
   beforeAll(async () => {
     process.env.HOTEL_SITE_URL = 'https://pratagy.letsbook.com.br/D/Reserva'
-    process.env.CHROME_PATH_MAC_M1='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+    process.env.EXECUTABLE_PATH='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
     puppeteerService = PuppeteerRoomsService.instance
     await puppeteerService.getBrowser()
   })

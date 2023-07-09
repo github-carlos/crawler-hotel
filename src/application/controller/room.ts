@@ -23,6 +23,9 @@ export class RoomController {
 
       return { data: result.rooms,  status: 200, error: undefined }
     } catch(err) {
+
+      this.debug('Error:: ' + err)
+
       if (err instanceof BusinessError) {
         return {data: null, status: 400, error: err.message}
       }
