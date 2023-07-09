@@ -2,13 +2,18 @@ resource "aws_ecs_cluster" "my_cluster" {
   name = "app-crawler-cluster"
 }
 
+data "aws_ecr_image" "ecr_image" {
+  repository_name = "${aws_ecr_repository.repo-crawler.name}"
+  image_tag = "latest"
+}
+
 resource "aws_ecs_task_definition" "app_task" {
   family                   = "app-first-task" # Name your task
   container_definitions    = <<DEFINITION
   [
     {
       "name": "app-first-task",
-      "image": "${aws_ecr_repository.repo-crawler.repository_url}",
+      "image": "${aws_ecr_repository.repo-crawler.repository_url}:latest@${data.aws_ecr_image.ecr_image.image_digest}",
       "essential": true,
       "portMappings": [
         {
