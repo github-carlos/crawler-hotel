@@ -1,27 +1,37 @@
-# Test Dev Asksuite
+# Hotel Crawler
+This is a simple bot project that uses Puppeteer to retrieve data from a site
 
-Hey! Glad you're here.
-I'm going to explain exactly what you'll have to implement in this test and what we expect as outcome.
+## Technologies and Libraries
+* **Node v16**: Runtime environment
+* **Typescript**: Programming Language
+* **Express**: Path router
+* **Puppeteer**: Controls Chrome/Chromium for crawler
+* **Jest**: Runtime Tester for Unit and Integration tests
+* **Eslint**: Linter for code quality
+* **dotenv**: For env configuration
+* **debug** and **winston**: for logging
+* **Zod**: Schema validation
+* **Clean Arch**: Code design
+* **Docker**: For image building
+* **Terraform**: For IaC
+* **AWS**: As cloud provider
+* **Github workflows**: For CI/CD
 
-First of all, we have this nice express.js boilerplate project to assist you so you don't have to create everything from scratch.
+## Deployed Test
+You can test deployed API in this link
 
-## Briefing
-The traveller comes to our bot and asks for "Price quotation". Then the bot asks for the dates the traveller wants to 
-stay at the bot's hotel.
-At the moment the traveller fills the requested information the bot needs to search the prices for each room available in the check-in/check-out 
-timeframe.
 
-You will have to implement the API responsible for doing the searching part.
-The necessary information for the crawler is under the [Assets](#assets) session
-
-## What you'll need to do:
-* Create a POST endpoint "/search"
+## Endpoints:
+### /search
+* Make a Search trough the endpoint "/search"
     * The expected payload is:
     
         <pre>
         {
-            "checkin": "YYYY-MM-DD", // Check-in date
-            "checkout": "YYYY-MM-DD" // Check-out date
+            "checkIn": "YYYY-MM-DD", // Check-in date
+            "checkOut": "YYYY-MM-DD", // Check-out date
+            "numberOfAdults": 2, // optional - default 2
+            "numberOfChildren": 1 // optional - default 0
         }
         </pre>
         
@@ -29,8 +39,8 @@ The necessary information for the crawler is under the [Assets](#assets) session
        
         <pre>
         {
-            "checkin": "2021-07-01", 
-            "checkout": "2021-07-03"
+            "checkIn": "2021-07-01", 
+            "checkOut": "2021-07-03"
         }
         </pre>
         
@@ -61,47 +71,63 @@ The necessary information for the crawler is under the [Assets](#assets) session
             "image": "https://letsimage.s3.amazonaws.com/letsbook/193/quartos/32/fotoprincipal.jpg"
         }]
         </pre>
-        
-To achieve this result you may:
+### /health
+* Path used to check application health. It makes a rooms available search and analyzes the response to see if it is as expected. Returns 200 when it is all ok, 500 when something is wrong.
 
-* With puppeteer, go to the [given URL](#assets)
-* Retrieve the needed information to assemble the payload using web crawling methods
+## Running locally
+### Docker Compose
+To run, you just need to have Docker and docker-compose installed, and execute the following command at the root of the project:
 
-## Environment
-* Node 10+
-* Dotenv setup
+```docker-compose up```
 
-Already installed: `express` `puppeteer` `dotenv`
+![](assets/docker-compose-execution.png)
+### node run dev
+Running with node:
 
-**_Feel free to add any lib you find relevant to your test._**
+```npm i```
 
+Then
 
-## Running
-* Install dependencies with: `npm install`
-* Run as dev: `npm run dev`
+```npm run dev```
 
-Default port is set to `8080`
+![](assets/npm-run-dev-execution.png)
 
-## Assets
-* Crawl URL sample (change dates): 
-<pre>https://pratagy.letsbook.com.br/D/Reserva?checkin=21%2F06%2F2022&checkout=25%2F06%2F2022&cidade=&hotel=12&adultos=2&criancas=&destino=Pratagy+Beach+Resort+All+Inclusive&promocode=&tarifa=&mesCalendario=6%2F14%2F2022</pre>
-* Help images:
-![sample_1](assets/sample_1.png)
+### Run tests
 
-## Test rating
-What do we evaluate with this test?
+Unit tests -> ```npm run test:unit```
 
-* Dev's capacity of:
-    * Self-learning
-    * Working with node
-    * Understanding an existent project
-* Dev's code quality:
-    * Clear and maintainable code
-    * Coding structure
-    * Changes that don't break easily
+All tests ->    ```npm t```
 
+![](assets/npm-t.png)
 
-domain -> entidades e casos de uso e interfaces dos services
-infra -> implementaçao dos services / puppeeter
-application -> controllers, routers
-main/app -> faz a cola e expoe a aplicacao para o server
+**npm t** runs a integration test that invokes Puppeteer
+
+## Code Design
+Code was designed thinking on the Clean Arch way, with the following layers:
+
+### Domain
+In this layer we have the Entities which handles most of the business logic and the usecases which orchestrates entities and services (repositories). Also there is defined interfaces for the services being used by the usecases
+### Infra
+Layer used to provide implementation to the services interfaces defined at Domain layer (in this case the implementation of the Puppeteer service)
+### Application
+In this layer contains routers that uses controller and controllers that interact with usecases. Also for facilitating there are some factories for routers and controllers.
+### shared
+This layer is a cross layer that can have code accessed by all other layers
+
+## CI/CD
+For CI/CD it was used two main techs: Terraform and Github flows.
+### How it works
+We have 3 main jobs on the pipeline:
+
+![](assets/ci-cd.png)
+
+1. **Lint and Tests**
+    * Runs a linter check and then all Unit tests
+2. **Docker image build and push to Repository**
+    * Build the Docker image and then publish it to ECR repository
+3. **AWS App Deploy**
+    * Creates all needed infra resources like ALB, ECS cluster, service... and mainly the ECS Task definition using the published Docker image from previous step
+### Terraform
+All needed infraestructure resources needed by the application was created with Terraform. You can find terraform code on the folder `/terraform`.
+
+You can try it with terraform comands **init** and **apply** (needs AWS CLI with valid credentials).

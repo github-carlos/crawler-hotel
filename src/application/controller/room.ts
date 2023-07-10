@@ -26,7 +26,6 @@ export class RoomController {
     } catch(err) {
 
       this.debug('Error:: ' + err)
-      logger.error('Error:: ' + err)
 
       if (err instanceof BusinessError) {
         return {data: null, status: 400, error: err.message}
