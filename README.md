@@ -18,11 +18,13 @@ This is a simple bot project that uses Puppeteer to retrieve data from a site
 * **Github workflows**: For CI/CD
 
 ## Deployed Test
-You can test deployed API in this link
+You can test deployed API in this link:
+<pre>
+ http://load-balancer-dev-848056330.us-east-1.elb.amazonaws.com
+</pre>
 
-
-## Endpoints:
-### /search
+## Endpoints
+### POST /search
 * Make a Search trough the endpoint "/search"
     * The expected payload is:
     
@@ -71,7 +73,7 @@ You can test deployed API in this link
             "image": "https://letsimage.s3.amazonaws.com/letsbook/193/quartos/32/fotoprincipal.jpg"
         }]
         </pre>
-### /health
+### GET /health
 * Path used to check application health. It makes a rooms available search and analyzes the response to see if it is as expected. Returns 200 when it is all ok, 500 when something is wrong.
 
 ## Running locally
@@ -115,7 +117,7 @@ In this layer contains routers that uses controller and controllers that interac
 This layer is a cross layer that can have code accessed by all other layers
 
 ## CI/CD
-For CI/CD it was used two main techs: Terraform and Github flows.
+For CI/CD it was used two main techs: Terraform and Github flows. All configuration can be found on `.github/workflows/ci_cd.yml` file
 ### How it works
 We have 3 main jobs on the pipeline:
 

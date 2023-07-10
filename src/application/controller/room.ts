@@ -4,7 +4,6 @@ import {  SearchAvailableRoomsInterface } from '@domain/usecase';
 import { Debugger, debug } from 'debug';
 import { SearchRoomSchema } from './schemas/searchRoom';
 import { ZodError } from 'zod';
-import { logger } from '../../shared/logger';
 
 export class RoomController {
 
