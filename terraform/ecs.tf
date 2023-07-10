@@ -9,6 +9,8 @@ data "aws_ecr_image" "ecr_image" {
 
 resource "aws_ecs_task_definition" "app_task" {
   family                   = "app-first-task" # Name your task
+  cpu = 1024
+  memory = 2048
   container_definitions    = <<DEFINITION
   [
     {
